@@ -27,12 +27,12 @@ public class UserController {
 	}
 	// 아이디 중복체크
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Boolean> idDuplCheck(@PathVariable String id) {
+	public ResponseEntity<Boolean> idDuplCheck(@PathVariable("id") String id) {
 		System.out.println(id);
 		
 		return new ResponseEntity<>(
 				false
-			, HttpStatus.OK);	
+				, HttpStatus.OK);	
 	}
 	// 회원가입
 	@PostMapping("/sign-up")
