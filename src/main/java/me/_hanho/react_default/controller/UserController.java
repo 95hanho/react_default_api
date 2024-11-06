@@ -1,5 +1,6 @@
 package me._hanho.react_default.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import me._hanho.react_default.model.User;
+import me._hanho.react_default.service.UserService;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+	
+	@Autowired
+	UserService uService;
 
 	// 로그인
 	@PostMapping("/")
 	public ResponseEntity<String> login(@ModelAttribute User user) {
 		System.out.println(user);
-		
+				
 		return new ResponseEntity<>(
 				"무슨 문제지??"
 			, HttpStatus.OK);	
@@ -28,11 +33,18 @@ public class UserController {
 	// 아이디 중복체크
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Boolean> idDuplCheck(@PathVariable("id") String id) {
-		System.out.println(id);
+		Boolean result = true;
 		
-		return new ResponseEntity<>(
-				false
-				, HttpStatus.OK);	
+		int count = uService.isUser(id);
+		if(count >= 1) {
+			return new ResponseEntity<>(
+					false
+					, HttpStatus.OK);	
+		} else {
+			return new ResponseEntity<>(
+					true
+					, HttpStatus.OK);	
+		}
 	}
 	// 회원가입
 	@PostMapping("/sign-up")

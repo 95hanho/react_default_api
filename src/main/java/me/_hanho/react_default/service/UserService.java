@@ -1,8 +1,9 @@
 package me._hanho.react_default.service;
 
-import org.springframework.stereotype.Service;
+public interface UserService {
 
-@Service
-public class UserService {
+	// 해당 아이디 존재여부 조회
+	String getUser(String id);
 
+	int isUser(String id);
 }
