@@ -1,6 +1,25 @@
 package me._hanho.react_default.service;
 
-public class UserServiceImpl {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-	// 해당 아이디 존재여부 조회
+import me._hanho.react_default.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserRepository userDAO;
+	
+	@Override
+	public String getUser(String id) {
+		return null;
+	}
+
+	@Override
+	public int isUser(String id) {
+		return userDAO.isUser(id);
+	}
+
+	
 }
