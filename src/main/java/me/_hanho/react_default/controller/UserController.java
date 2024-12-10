@@ -1,5 +1,8 @@
 package me._hanho.react_default.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +22,7 @@ import me._hanho.react_default.service.UserService;
 public class UserController {
 	
 	@Autowired
-	UserService uService;
+	private UserService uService;
 
 	// 로그인
 	@PostMapping("/")
@@ -32,17 +35,20 @@ public class UserController {
 	}
 	// 아이디 중복체크
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Boolean> idDuplCheck(@PathVariable("id") String id) {
-		Boolean result = true;
+	public ResponseEntity<Map<String, Object>> idDuplCheck(@PathVariable("id") String id) {
+//		Boolean result = true;
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int count = uService.isUser(id);
 		if(count >= 1) {
+			result.put("code", "ID_DUPLICATED");
 			return new ResponseEntity<>(
-					false
-					, HttpStatus.OK);	
+					result
+					, HttpStatus.BAD_REQUEST);	
 		} else {
+			result.put("code", "success");
 			return new ResponseEntity<>(
-					true
+					result
 					, HttpStatus.OK);	
 		}
 	}

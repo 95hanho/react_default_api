@@ -18,6 +18,7 @@ public class User {
 	private Date enroll_date;
 	
 	public User() {}
+	
 	public User(String user_id, String user_pwd, String user_name, String email, String user_nickName) {
 		super();
 		this.user_id = user_id;

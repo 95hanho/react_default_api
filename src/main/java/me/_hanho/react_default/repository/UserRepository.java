@@ -9,7 +9,7 @@ import me._hanho.react_default.mapper.UserMapper;
 public class UserRepository {
 	
 	@Autowired
-	UserMapper userMapper;
+	private UserMapper userMapper;
 
 	public int isUser(String id) {
 		return userMapper.isUser(id);
